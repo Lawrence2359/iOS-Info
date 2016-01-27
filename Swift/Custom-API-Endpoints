@@ -1,0 +1,18 @@
+let baseURL = NSURL(string: "http://httpbin.org")!
+
+enum Endpoint {
+    case UserAgent
+    case Links(Int)
+
+    func url() -> NSURL {
+        switch self {
+        case .UserAgent:
+            return baseURL.URLByAppendingPathComponent("/user-agent")
+        case .Links(let n):
+            return baseURL.URLByAppendingPathComponent("/links/\(n)")
+        }
+    }
+}
+
+request(Endpoint.UserAgent.url())
+request(Endpoint.Links(5).url())
